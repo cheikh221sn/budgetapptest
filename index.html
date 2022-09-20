@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gestion de budget</title>
+  </head>
+  <body>
+    <h1>GESTION DE BUDGET</h1>
+    <table class="tab">
+      <tr>
+        <th><button>BUDGET</button> <label id="TotalRevenue">0</label> </th>
+        <th><button>DEPENSE</button><label id="TotalDepense">0</label></th>
+        <th><button>SOLDE</button> <label id="Solde">0</label></th>
+        
+      </tr>
+    </table>
+    <div>
+      <h2>LISTE DES DEPENSES</h2>
+      <button id="BtnValidDep">Ajouter DEPENSE</button
+      ><br />
+      <table id="tblDep"  class="depenseTable">
+        <tr>
+          <th>TITRE</th>
+          <th>MONTANT</th>
+          <th>ACTION</th>
+        </tr>
+      </table>
+      <h2>LISTE DES REVENUS</h2>
+      
+      <button id="BtnValidRev">Ajouter REVENUS</button
+      ><br />
+      <table id="tblRev"  class="revenueTable">
+        <tr>
+          <th>TITRE</th>
+          <th>MONTANT</th>
+          <th>ACTION</th>
+        </tr>        
+      </table>
+    </div>
+    <br />
+    <div id="myModaldep" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <caption>
+              <h3>Ajouter DEPENSE</h3>
+            </caption>
+            <br />
+            <tr>
+                <td>Categorie</td>
+                <td><select name="cat" id="cat">
+                    <option value="">--Veuillez choisir une catégorie --</option>
+                    <option value="nour">Repas mensuel</option>
+                    <option value="tran">Transport</option>
+                    <option value="lois">Facture</option>
+                    <option value="loye">Payement scolaire</option>
+                    <option value="loye">Loyer</option>
+                    <option value="loye">Loisirs</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Montant</td>
+                <td><input type="number" id="montantdep"></td>
+            </tr>
+          </table>
+          <button id="but_valider_depense">Valider</button>
+        </div>
+        <div class="modal-footer">
+         
+        </div>
+      </div>
+    </div>
+    <div class="dep" id="div2"></div>
+    <div id="myModalrev" class="modal">
+      <div class="modal-content">
+    <div id="myheader" class="header">
+        <div class="header-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Ajouter REVENUS</h2>
+          </div>
+          <div class="modal-div2">
+            <table class="table">
+              <br />
+              <tr>
+                  <td>classe</td>
+                  <td><select name="cla" id="cla">
+                      <option value="">--Veuillez choisir votre classe--</option>
+                      <option value="sala">Salaire</option>
+                      <option value="inde">Bonus</option>
+                      <option value="loge">Benefice de la commerce</option>
+                  </select></td>
+              </tr>
+              <tr>
+                  <td>Montant</td>
+                  <td><input type="number" id="montantrev"></td>
+              </tr>
+            </table>
+            <button id="but_valider_revenue">Valider</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div id="myModalmod" class="modal">
+      <div class="modal-content">
+    <div id="myheader" class="header">
+        <div class="header-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Modifier Montant - <label id="labelCateg"></label></h2>
+          </div>
+          <div class="modal-div2">
+            <table class="table">
+              <br />
+              <tr>
+                  <td>Montant</td>
+                  <td><input type="number" id="nouveauMontant">
+                    <input type="hidden" id="codecateg"></td>
+              </tr>              
+            </table>
+            <button id="but_nouveau_montant">Valider</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div id="myModalmodRev" class="modal">
+      <div class="modal-content">
+    <div id="myheader" class="header">
+        <div class="header-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Modifier Montant - <label id="labelCla"></label></h2>
+          </div>
+          <div class="modal-div2">
+            <table class="table">
+              <br />
+              <tr>
+                  <td>Montant</td>
+                  <td><input type="number" id="nouveauMontantRev">
+                    <input type="hidden" id="codecla"></td>
+              </tr>              
+            </table>
+            <button id="but_nouveau_montant_rev">Valider</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
