@@ -39,8 +39,11 @@ th{
 }
 
 h2{
-    margin-left: 200px;
+   margin-left: 200px;
     padding: 12px;
+    display: flex;
+    margin-right: 10vh;
+   
 }
 
 .table{
@@ -78,11 +81,17 @@ h2{
 }
 #BtnValidDep{
     display: flex;
-    margin: auto;
+    position: relative;
+    top: -10vh;
+    left: 75%;
+
 }
 #BtnValidRev{
     display: flex;
-    margin: auto;
+   position: relative;
+   top: -10vh;
+   left: 75%;
+    
 }
 #but_nouveau_montant{
     display: flex;
@@ -143,4 +152,11 @@ h2{
 #but_valider_revenue{display: flex;
     margin: auto;
 
+}
+#BtnValidRev{
+    background-color: white;
+    border: solid brown;
+}
+#BtnValidDep{
+    border: solid black;
 }

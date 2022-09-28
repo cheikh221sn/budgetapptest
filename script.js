@@ -1,7 +1,9 @@
 const modaldep = document.getElementById("myModaldep");
-
+let totalDepenseStorage = []
+console.log("totalDepenseStorage",totalDepenseStorage)
 const btnValidDep = document.getElementById("BtnValidDep");
-
+let totalRevenueStorage = []
+console.log("totalRevenueStorage" ,totalRevenueStorage)
 const span = document.getElementsByClassName("close")[0];
 
 btnValidDep.onclick = function () {
@@ -11,7 +13,6 @@ btnValidDep.onclick = function () {
 span.onclick = function () {
   modaldep.style.display = "none";
 };
-
 window.onclick = function (event) {
   if (event.target == modaldep) {
     modaldep.style.display = "none";
@@ -39,13 +40,10 @@ span2.onclick = function () {
 };
 span3.onclick = function () {
   modalmodrev.style.display = "none";
+  
 };
 
-window.onclick = function (event) {
-  if (event.target == modalrev) {
-    modalrev.style.display = "none";
-  }
-};
+
 
 let btn_valider_depense = document.getElementById("but_valider_depense");
 let categ = document.getElementById("cat");
@@ -72,6 +70,7 @@ class revenue {
 }
 let revenues = [];
 
+//? fonction pour ajouter une depense
 btn_valider_depense.onclick = function () {
   if (categ.options[categ.selectedIndex].value === "") {
     alert("Veuillez choisir une catégorie");
@@ -82,9 +81,9 @@ btn_valider_depense.onclick = function () {
       alert("Le solde est insuffisante pour effectuer cette dépense")
     }
     else {
-
-    TotalDepense.innerHTML =
-      parseFloat(TotalDepense.innerHTML) + parseFloat(montantdep.value);
+const totaldep = parseFloat(TotalDepense.innerHTML) + parseFloat(montantdep.value);
+    TotalDepense.innerHTML = totaldep
+     
     Solde.innerHTML =
       parseFloat(TotalRevenue.innerHTML) - parseFloat(TotalDepense.innerHTML);
       let depense1 = new depense(
@@ -92,7 +91,9 @@ btn_valider_depense.onclick = function () {
       parseFloat(montantdep.value),
       categ.options[categ.selectedIndex].value
     );
-
+console.log("depense1",depense1)
+totalDepenseStorage.push({categorie:depense1.categorie,montant:depense1.montant})
+localStorage.setItem("depense", JSON.stringify(totalDepenseStorage))
     let index = depenses.findIndex(function (elt) {
       return elt.code === categ.options[categ.selectedIndex].value;
     });
@@ -102,10 +103,15 @@ btn_valider_depense.onclick = function () {
     } else {
       depenses.push(depense1);
     }
-    alert("La dépense a été ajoutée avec succès");
+    // alert("La dépense a été ajoutée avec succès");
     categ.options[0].selected = true;
     montantdep.value = "";
-    chargerTableDepense();}
+    // localStorage.setItem("depense", JSON.stringify(totaldep))
+    chargerTableDepense();
+    modaldep.style.display="none"
+
+  }
+
   }
 };
 
@@ -205,7 +211,7 @@ function chargerTableRevenue() {
       let nouveauMontantRev = document.getElementById("nouveauMontantRev");
       let labelCla = document.getElementById("labelCla");
       let codeCla = document.getElementById("codecla");
-      labelCla.innerText =revenues[index1].classe;
+      labelCla.innerText = revenue[index1].classe;
       nouveauMontantRev.value =revenues[index1].montant;
       codeCla.value =revenues[index1].code;
     };
@@ -244,13 +250,14 @@ let btn_valider_revenue = document.getElementById("but_valider_revenue");
 let cla = document.getElementById("cla");
 let montantrev = document.getElementById("montantrev");
 
+//!fonction pour valider une revenue
 btn_valider_revenue.onclick = function () {
   if (cla.options[cla.selectedIndex].value === "") {
     alert("Veuillez choisir une classe");
   } else {
-
-    TotalRevenue.innerHTML =
-    parseFloat(TotalRevenue.innerHTML) + parseFloat(montantrev.value);
+    const totalrev =parseFloat(TotalRevenue.innerHTML) + parseFloat(montantrev.value);
+    TotalRevenue.innerHTML =totalrev
+    
   Solde.innerHTML =
     parseFloat(TotalRevenue.innerHTML) - parseFloat(TotalDepense.innerHTML);
 
@@ -260,7 +267,9 @@ btn_valider_revenue.onclick = function () {
       parseFloat(montantrev.value),
       cla.options[cla.selectedIndex].value
     );
-
+    console.log("revenue1",revenue1)
+    totalRevenueStorage.push({classe:revenue1.classe,montant:revenue1.montant})
+    localStorage.setItem("revenue", JSON.stringify(totalRevenueStorage))
     let index = revenues.findIndex(function (elt) {
       return elt.code === cla.options[cla.selectedIndex].value;
     });
@@ -270,10 +279,12 @@ btn_valider_revenue.onclick = function () {
     } else {
       revenues.push(revenue1);
     }
-    alert("Le revenu a été ajoutée avec succès");
+    // alert("Le revenu a été ajoutée avec succès");
     cla.options[0].selected = true;
+    // localStorage.setItem("revenu", JSON.stringify(totalrev));
     montantdep.value = "";
     chargerTableRevenue();
+    modalrev.style.display="none"
   }
   
 };
@@ -336,4 +347,43 @@ but_nouveau_montant_rev.onclick = function () {
     alert("Le montant a été modifié avec succès");
   }
   chargerTableRevenue();}
-};
+  
+  
+  start();
+}
+
+// Update local storage transactions
+// function updateLocalStorage(totaldep) {
+  // localStorage.setItem("revenu", JSON.stringify(totaldepense));
+  // localStorage.setItem("depense", JSON.stringify(totaldep));
+
+// }
+
+
+
+
+// start()
+
+  
+
+
+// localStorage.setItem( "categorie", JSON.stringify(cat))
+document.addEventListener("DOMContentLoaded",function(){
+
+ const depense = localStorage.getItem("depense")
+ console.log ({depense})
+  if(depense !== null){
+  depenses.push(...JSON.parse(depense) )
+ chargerTableDepense()
+ }
+
+ 
+  const revenue = localStorage.getItem("revenue")
+  console.log ({revenue})
+  if(revenue !== null){
+    revenues.push(...JSON.parse(revenue))
+    chargerTableRevenue()
+  }
+  
+ })
+
