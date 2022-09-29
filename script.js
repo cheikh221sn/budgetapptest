@@ -269,8 +269,9 @@ btn_valider_revenue.onclick = function () {
     );
     console.log("revenue1",revenue1)
     totalRevenueStorage.push({classe:revenue1.classe,montant:revenue1.montant})
-    localStorage.setItem("revenue", JSON.stringify(totalRevenueStorage))
+   localStorage.setItem("revenue", JSON.stringify(totalRevenueStorage))
     let index = revenues.findIndex(function (elt) {
+    
       return elt.code === cla.options[cla.selectedIndex].value;
     });
 
@@ -282,6 +283,7 @@ btn_valider_revenue.onclick = function () {
     // alert("Le revenu a été ajoutée avec succès");
     cla.options[0].selected = true;
     // localStorage.setItem("revenu", JSON.stringify(totalrev));
+    
     montantdep.value = "";
     chargerTableRevenue();
     modalrev.style.display="none"
@@ -375,6 +377,7 @@ document.addEventListener("DOMContentLoaded",function(){
   if(depense !== null){
   depenses.push(...JSON.parse(depense) )
  chargerTableDepense()
+ totalDepenseStorage.push(...JSON.parse(depense))
  }
 
  
@@ -382,8 +385,12 @@ document.addEventListener("DOMContentLoaded",function(){
   console.log ({revenue})
   if(revenue !== null){
     revenues.push(...JSON.parse(revenue))
-    chargerTableRevenue()
+    chargerTableRevenue() 
+    totalRevenueStorage.push(...JSON.parse(revenue))
+    
+
+
   }
-  
+
  })
 
