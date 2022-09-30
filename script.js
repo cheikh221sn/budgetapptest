@@ -77,10 +77,10 @@ btn_valider_depense.onclick = function () {
   } else {
 
 
-    if (parseFloat(montantdep.value) > parseFloat(Solde.innerHTML)) {
-      alert("Le solde est insuffisante pour effectuer cette dépense")
-    }
-    else {
+    // if (parseFloat(montantdep.value) > parseFloat(Solde.innerHTML)) {
+    //   // alert("Le solde est insuffisante pour effectuer cette dépense")
+    // }
+    //  else {
 const totaldep = parseFloat(TotalDepense.innerHTML) + parseFloat(montantdep.value);
     TotalDepense.innerHTML = totaldep
      
@@ -102,7 +102,7 @@ localStorage.setItem("depense", JSON.stringify(totalDepenseStorage))
       depenses[index].montant =  depenses[index].montant + parseFloat(montantdep.value);
     } else {
       depenses.push(depense1);
-    }
+    // }
     // alert("La dépense a été ajoutée avec succès");
     categ.options[0].selected = true;
     montantdep.value = "";
@@ -305,10 +305,10 @@ but_nouveau_montant.onclick = function () {
   parseFloat(nouveauMontant.value) -
   depenses[index].montant);
 
-  if (nouveauSolde < 0) {
-    alert("Le solde est insuffisante pour effectuer cette dépense")
-  }
-  else {
+  // if (nouveauSolde < 0) {
+  //   // alert("Le solde est insuffisante pour effectuer cette dépense")
+  // }
+  // else {
   
   
   if (index !== -1) {
@@ -320,7 +320,7 @@ but_nouveau_montant.onclick = function () {
       parseFloat(TotalRevenue.innerHTML) - parseFloat(TotalDepense.innerHTML);
     depenses[index].montant = parseFloat(nouveauMontant.value);
     alert("Le montant a été modifié avec succès");
-  }
+  // }
   chargerTableDepense();}
 };
 
@@ -375,21 +375,52 @@ document.addEventListener("DOMContentLoaded",function(){
  const depense = localStorage.getItem("depense")
  console.log ({depense})
   if(depense !== null){
+    console.log(JSON.parse(depense))
   depenses.push(...JSON.parse(depense) )
  chargerTableDepense()
  totalDepenseStorage.push(...JSON.parse(depense))
+//  console.log({TotalDepense:TotalDepense.innerHTML,montant:montantdep.value})
+ 
+ 
  }
 
  
   const revenue = localStorage.getItem("revenue")
   console.log ({revenue})
   if(revenue !== null){
+    
+    const initialValue = 0;
+    const sumWithInitial = JSON.parse(revenue).reduce(
+      (previousValue, currentValue) => previousValue + currentValue.montant,
+      initialValue)
+      console.log({sumWithInitial})
     revenues.push(...JSON.parse(revenue))
     chargerTableRevenue() 
     totalRevenueStorage.push(...JSON.parse(revenue))
     
+    const dev = document.getElementById("TotalRevenue").innerHTML = sumWithInitial.toFixed(2);
+    console.log(dev)
+    
+    
 
-
+    
+    
+    const initValue = 0;
+    const sumValue = JSON.parse(revenue).reduce(
+      (previousValue, currentValue) => previousValue + currentValue.montant,
+      initValue)
+      console.log({sumValue})
+    depenses.push(...JSON.parse(depense))
+    chargerTableRevenue() 
+    totalRevenueStorage.push(...JSON.parse(depense))
+    
+    const add = document.getElementById("TotalDepense").innerHTML = sumValue.toFixed(2);
+    console.log(add)
+    
+     const solde = sumWithInitial - sumValue;
+     const x = document.getElementById("Solde").innerHTML = solde.toFixed(2);
+     console.log(solde)
+     console.log(x)
   }
 
  })
